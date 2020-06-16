@@ -9,7 +9,9 @@
   "author": "Karthik S Jhingade",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.9.18",
     "underscore": "^1.10.2"
+  },
+  "devDependencies": {
+    "jshint": "^2.11.1"
   }
 }
