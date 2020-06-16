@@ -1,0 +1,15 @@
+{
+  "name": "vidly-app",
+  "version": "1.0.0",
+  "description": "Renting movies app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Karthik S Jhingade",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "joi": "^14.3.1"
+  }
+}
