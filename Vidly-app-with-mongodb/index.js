@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const genres = require('./routes/genres');
+const customers = require('./routes/customers');
 const express = require('express');
 
 // Create an express application
@@ -12,8 +13,11 @@ mongoose.connect('mongodb://localhost/vidly')
 
 // Middleware which only processes requests having Content-Type as application/json
 app.use(express.json());
-// Middleware for routing purpose
+// Middleware for routing to genres related APIs'
 app.use('/api/genres', genres);
+
+// Middleware for routing to customers related APIs'
+app.use('/api/customers', customers);
 
 // Run the server on port 8086 by default unless set by an environment variable
 const port = process.env.PORT || 8086;
