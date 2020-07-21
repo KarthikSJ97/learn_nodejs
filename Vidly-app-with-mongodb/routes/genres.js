@@ -1,29 +1,6 @@
-const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
-// Joi for request body validation
-const Joi = require('joi');
-
-// Generate genre schema
-const genreSchema = new mongoose.Schema({
-  name : {
-    type: String,
-    required: true,
-    // minlength: 5,
-    // maxlength: 50,
-
-    // Custom validator for sending custom message on Bad Request
-    validate: {
-      validator: function(v) {
-        return v.length >= 5 && v.length <=50;
-      },
-      message: 'Genre should be atleast 5 characters long'
-    }
-  }
-});
-
-// Generate model using the genre schema
-const Genre = mongoose.model('Genre', genreSchema);
+const {Genre, validate} = require('../models/genre');
 
 // Route to get list of all the genres
 router.get('/', async(req, res) => {
@@ -34,7 +11,7 @@ router.get('/', async(req, res) => {
 // Route to add a new genre
 router.post('/', async(req, res) => {
   // Validate request body against genre schema
-  const { error } = validateGenre(req.body); 
+  const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
   let genre = new Genre ({
@@ -56,7 +33,7 @@ router.post('/', async(req, res) => {
 router.put('/:id', async(req, res) => {
   
   // Validate request body against genre schema
-  const { error } = validateGenre(req.body); 
+  const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
   // setting the new property to true to get the genre oject after updating in the database
@@ -82,14 +59,5 @@ router.get('/:id', async(req, res) => {
   if (!genre) return res.status(404).send('The genre with the given ID was not found.');
   res.send(genre);
 });
-
-// Function to validate the request body against the genre schema
-function validateGenre(genre) {
-  const schema = {
-    name: Joi.string().min(5).required()
-  };
-
-  return Joi.validate(genre, schema);
-}
 
 module.exports = router;
