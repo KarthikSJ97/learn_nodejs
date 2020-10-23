@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const genres = require('./routes/genres');
 const customers = require('./routes/customers');
 const movies = require('./routes/movies');
+const rentals = require('./routes/rentals')
 const express = require('express');
 
 // Create an express application
@@ -22,6 +23,9 @@ app.use('/api/customers', customers);
 
 // Middleware for routing to movies related APIs'
 app.use('/api/movies', movies);
+
+// Middleware for routing to rentals related APIs'
+app.use('/api/rentals', rentals);
 
 // Run the server on port 8086 by default unless set by an environment variable
 const port = process.env.PORT || 8086;
