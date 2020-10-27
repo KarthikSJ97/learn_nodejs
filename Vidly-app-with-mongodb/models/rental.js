@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
-Joi.objectId = require('joi-objectid')(Joi);
 
 // Rental Schema with new customer and movie schema to improve the query performance
 const rentalSchema = mongoose.Schema({
