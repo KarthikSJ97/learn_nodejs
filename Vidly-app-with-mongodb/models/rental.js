@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 
 // Rental Schema with new customer and movie schema to improve the query performance
 const rentalSchema = mongoose.Schema({
@@ -62,8 +63,8 @@ const Rental = mongoose.model('Rental', rentalSchema);
 // Function to validate the request body against the rental schema
 function validateRental(rental) {
     const schema = {
-        customerId: Joi.string().required(),
-        movieId: Joi.string().required()
+        customerId: Joi.objectId().required(),
+        movieId: Joi.objectId().required()
     };
     return Joi.validate(rental, schema);
 }
