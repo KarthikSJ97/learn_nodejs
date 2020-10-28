@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "config": "^3.3.2",
     "express": "^4.16.2",
     "joi": "^13.1.0",
     "joi-objectid": "^3.0.1",

@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const {User, validate} = require('../models/user');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
 // Router to register a new user to our application
 router.post('/', async(req, res) => {
@@ -23,7 +25,9 @@ router.post('/', async(req, res) => {
 
     try{
         await user.save();
-        res.send(_.pick(user, ['_id', 'name', 'email']));
+        // Generate the token and send it in the response header
+        const token = jwt.sign({ _id: user._id}, config.get('jwtPrivateKey'));
+        res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
     }
     catch(error) {
         res.send(error.message);
