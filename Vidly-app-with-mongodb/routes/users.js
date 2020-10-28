@@ -2,6 +2,7 @@ const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
 const {User, validate} = require('../models/user');
+const bcrypt = require('bcrypt');
 
 // Router to register a new user to our application
 router.post('/', async(req, res) => {
@@ -16,6 +17,9 @@ router.post('/', async(req, res) => {
 
     // A malicious user may send multiple properties, hence we just pick the properties that are required
     user = new User (_.pick(req.body, ['name', 'email', 'password']));
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
 
     try{
         await user.save();
