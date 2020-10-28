@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 // Joi for request body validation
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
 // Generate genre schema
 const userSchema = new mongoose.Schema({
@@ -24,6 +26,11 @@ const userSchema = new mongoose.Schema({
     maxlength: 1024
   }
 });
+
+userSchema.methods.generateAuthToken = function() {
+  const token = jwt.sign({ _id: this._id}, config.get('jwtPrivateKey'));
+  return token;
+}
 
 // Generate model using the genre schema
 const User = mongoose.model('User', userSchema);
