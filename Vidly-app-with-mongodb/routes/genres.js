@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {Genre, validate} = require('../models/genre');
+const auth = require('../middleware/auth');
 
 // Route to get list of all the genres
 router.get('/', async(req, res) => {
@@ -9,7 +10,8 @@ router.get('/', async(req, res) => {
 });
 
 // Route to add a new genre
-router.post('/', async(req, res) => {
+// Added an optional middleware auth to this route
+router.post('/', auth, async(req, res) => {
   // Validate request body against genre schema
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
