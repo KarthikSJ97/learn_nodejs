@@ -6,6 +6,7 @@ const customers = require('./routes/customers');
 const movies = require('./routes/movies');
 const rentals = require('./routes/rentals')
 const users = require('./routes/users');
+const auth = require('./routes/auth');
 const express = require('express');
 
 // Create an express application
@@ -32,6 +33,9 @@ app.use('/api/rentals', rentals);
 
 // Middleware for routing to users related APIs'
 app.use('/api/users', users);
+
+// Middleware for routing to auth related APIs'
+app.use('/api/auth', auth);
 
 // Run the server on port 8086 by default unless set by an environment variable
 const port = process.env.PORT || 8086;

@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 // Router to register a new user to our application
 router.post('/', async(req, res) => {
     
-    // Validate request body against genre schema
+    // Validate request body against user schema
     const { error } = validate(req.body); 
     if (error) return res.status(400).send(error.details[0].message);
   
