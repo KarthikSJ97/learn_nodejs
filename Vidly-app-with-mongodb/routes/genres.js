@@ -3,17 +3,16 @@ const router = express.Router();
 const {Genre, validate} = require('../models/genre');
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
-const asyncMiddleware = require('../middleware/async');
 
 // Route to get list of all the genres
-router.get('/', asyncMiddleware(async(req, res) => {
+router.get('/', async(req, res) => {
   const genres = await Genre.find().sort('name');
   res.send(genres);
-}));
+});
 
 // Route to add a new genre
 // Added an optional middleware auth to this route
-router.post('/', auth, asyncMiddleware(async(req, res) => {
+router.post('/', auth, async(req, res) => {
   // Validate request body against genre schema
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
@@ -31,7 +30,7 @@ router.post('/', auth, asyncMiddleware(async(req, res) => {
   }
   
   
-}));
+});
 
 // Route to update a genre name
 router.put('/:id', async(req, res) => {

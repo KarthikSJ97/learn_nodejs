@@ -1,3 +1,5 @@
+// Require express-async-errors to handle exceptions globally and pass the control to error.js middleware
+require('express-async-errors');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
