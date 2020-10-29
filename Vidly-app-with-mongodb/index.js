@@ -9,6 +9,7 @@ const users = require('./routes/users');
 const auth = require('./routes/auth');
 const express = require('express');
 const config = require('config');
+const error = require('./middleware/error');
 
 // Create an express application
 const app = express();
@@ -43,6 +44,9 @@ app.use('/api/users', users);
 
 // Middleware for routing to auth related APIs'
 app.use('/api/auth', auth);
+
+// Middleware to handle exceptions globally
+app.use(error);
 
 // Run the server on port 8086 by default unless set by an environment variable
 const port = process.env.PORT || 8086;
