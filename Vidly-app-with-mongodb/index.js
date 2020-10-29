@@ -12,9 +12,13 @@ const auth = require('./routes/auth');
 const express = require('express');
 const config = require('config');
 const error = require('./middleware/error');
+const winston = require('winston');
 
 // Create an express application
 const app = express();
+
+// Adding the file transport to store the logs in file
+winston.add(new winston.transports.File({ filename: 'logfile.log' }));
 
 // Exit the process if the environment variable for jwtPrivateKey is not set
 if(!config.get('jwtPrivateKey')) {
