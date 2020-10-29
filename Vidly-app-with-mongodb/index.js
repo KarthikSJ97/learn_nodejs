@@ -13,12 +13,17 @@ const express = require('express');
 const config = require('config');
 const error = require('./middleware/error');
 const winston = require('winston');
+require('winston-mongodb');
 
 // Create an express application
 const app = express();
 
 // Adding the file transport to store the logs in file
 winston.add(new winston.transports.File({ filename: 'logfile.log' }));
+winston.add(new winston.transports.MongoDB({
+    db: 'mongodb://localhost/vidly',
+    level: 'info'
+}))
 
 // Exit the process if the environment variable for jwtPrivateKey is not set
 if(!config.get('jwtPrivateKey')) {
