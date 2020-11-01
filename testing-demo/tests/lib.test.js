@@ -48,3 +48,25 @@ describe('getCurrencies', () => {
         expect(result).toEqual(expect.arrayContaining(['USD', 'EUR', 'AUD']));
     });
 });
+
+describe('getProduct', () => {
+    it('should return product with the given ID', () => {
+        const result = lib.getProduct(1);
+
+        // The toBe matcher fails here because it compares the references to the objects (expected and received)
+        // which are stored in different locations in memory
+        // expect(result).toBe({ id: 1, price: 10});
+
+        // The toEqual matcher checks for object equality and hence it passes
+        // Here, both the expected and received should have exact same properties and it's values (no more, no less)
+        expect(result).toEqual({ id: 1, price: 10});
+
+        // To not be way too general or too specific, we can go with the below approaches
+
+        // The toMatchObject matcher passes as long as the expected properties are present with the expected values
+        expect(result).toMatchObject({ id: 1, price: 10});
+
+        // Test passes if it contains the property mentioned
+        expect(result).toHaveProperty('id', 1);
+    });
+});
