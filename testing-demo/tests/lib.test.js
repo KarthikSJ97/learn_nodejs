@@ -70,3 +70,23 @@ describe('getProduct', () => {
         expect(result).toHaveProperty('id', 1);
     });
 });
+
+describe('register user', () => {
+    it('should throw an exception if username is falsy', () => {
+        // We say it is falsy in JavaScript when it takes one of the following values
+        // Null, undefined, NaN, '', 0, false
+        // Instead of looping through the array, we can use the jest-each pakage 
+        // which supports parameterized tests
+        const args = [null, undefined, NaN, '', 0, false];
+        args.forEach(a => {
+            expect(() => { lib.registerUser(null) }).toThrow();
+        })
+        
+    });
+
+    it('should return a user object if valid username is passed', () => {
+        const result = lib.registerUser('Karthik');
+        expect(result).toMatchObject({username: 'Karthik'});
+        expect(result.id).toBeGreaterThan(0);
+    });
+});
