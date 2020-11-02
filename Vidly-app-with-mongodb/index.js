@@ -21,4 +21,6 @@ require('./startup/validation')();
 
 // Run the server on port 8086 by default unless set by an environment variable
 const port = process.env.PORT || 8086;
-app.listen(port, () => winston.info(`Listening on port ${port}...`));
+const server = app.listen(port, () => winston.info(`Listening on port ${port}...`));
+
+module.exports = server;
