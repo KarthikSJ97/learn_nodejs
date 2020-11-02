@@ -9,8 +9,8 @@ describe('/api/genres', () => {
     beforeEach(() => { server = require('../../index'); });
     // Close the server and also clear the modifications made to the test database after each test
     afterEach(async() => { 
-        server.close();
-        await Genre.remove();
+        await server.close();
+        await Genre.remove({});
     });
 
     describe('GET /', () => {
