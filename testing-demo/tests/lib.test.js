@@ -1,4 +1,5 @@
 const lib = require('../lib');
+const db = require('../db');
 
 describe('absolute', () => {
     it('should return a positive number if input is positive', () => {
@@ -71,7 +72,7 @@ describe('getProduct', () => {
     });
 });
 
-describe('register user', () => {
+describe('registerUser', () => {
     it('should throw an exception if username is falsy', () => {
         // We say it is falsy in JavaScript when it takes one of the following values
         // Null, undefined, NaN, '', 0, false
@@ -88,5 +89,20 @@ describe('register user', () => {
         const result = lib.registerUser('Karthik');
         expect(result).toMatchObject({username: 'Karthik'});
         expect(result.id).toBeGreaterThan(0);
+    });
+});
+
+describe('applyDiscount', () => {
+    it('should apply 10% discount if customer has more than 10 points', () => {
+        
+        // Mocking the actual call to db.js
+        db.getCustomerSync = function(customerId) {
+            console.log('Fake reading customer...');
+            return { id: customerId, points: 20 };
+        }
+
+        const order = { customerId: 1, totalPrice: 10 };
+        lib.applyDiscount(order);
+        expect(order.totalPrice).toBe(9);
     });
 });
