@@ -21,16 +21,9 @@ router.post('/', auth, async(req, res) => {
   const genre = new Genre ({
     name: req.body.name
   });
-
-  try {
-    await genre.save();
-    res.send(genre);
-  }
-  catch(error) {
-    res.send(error.message);
-  }
-  
-  
+  await genre.save();
+  res.send(genre);
+    
 });
 
 // Route to update a genre name
