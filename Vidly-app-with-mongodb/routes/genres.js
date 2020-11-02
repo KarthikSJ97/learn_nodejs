@@ -3,7 +3,7 @@ const router = express.Router();
 const {Genre, validate} = require('../models/genre');
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
-const mongoose = require('mongoose');
+const validateObjectId = require('../middleware/validateObjectId');
 
 // Route to get list of all the genres
 router.get('/', async(req, res) => {
@@ -59,10 +59,7 @@ router.delete('/:id', [auth, admin], async(req, res) => {
 });
 
 // Route to get a genre by Id
-router.get('/:id', async(req, res) => {
-  
-  if(!mongoose.Types.ObjectId.isValid(req.params.id))
-    return res.status(404).send('Invalid Id');
+router.get('/:id', validateObjectId, async(req, res) => {
 
   const genre = await Genre.findById(req.params.id);
   if (!genre) return res.status(404).send('The genre with the given ID was not found.');
