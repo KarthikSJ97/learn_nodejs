@@ -1,5 +1,6 @@
 const lib = require('../lib');
 const db = require('../db');
+const mail = require('../mail');
 
 describe('absolute', () => {
     it('should return a positive number if input is positive', () => {
@@ -104,5 +105,23 @@ describe('applyDiscount', () => {
         const order = { customerId: 1, totalPrice: 10 };
         lib.applyDiscount(order);
         expect(order.totalPrice).toBe(9);
+    });
+});
+
+describe('notifyCustomer', () => {
+    it('should send an email to the customer', () => {
+        
+        // Instead of manually mocking the function, we can use the jest.fn()
+        db.getCustomerSync = jest.fn().mockReturnValue({ email: 'a' });
+        mail.send = jest.fn();
+        
+        lib.notifyCustomer({ customerId: 1 });
+
+        // Check if the mock was called
+        expect(mail.send).toHaveBeenCalled();
+        // Validate the parameters
+        expect(mail.send.mock.calls[0][0]).toBe('a');
+        expect(mail.send.mock.calls[0][1]).toMatch(/order/);
+        
     });
 });
