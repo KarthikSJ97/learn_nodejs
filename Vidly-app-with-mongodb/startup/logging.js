@@ -12,7 +12,7 @@ module.exports = function() {
             // Adding the console transport
             winston.add(console),
             // Adding the file transport to store the logs in file
-            winston.add(new winston.transports.File({ filename: '../logfile.log' })),
+            winston.add(new winston.transports.File({ filename: 'logs/logfile.log' })),
             winston.add(new winston.transports.MongoDB({
                 db: 'mongodb://localhost/vidly',
                 level: 'info'
@@ -20,7 +20,7 @@ module.exports = function() {
             // To handle uncaught exception outside the request handling pipeline
             winston.add(
                 new winston.transports.File({
-                filename: '../uncaughtExceptions.log',
+                filename: 'logs/uncaughtExceptions.log',
                 handleExceptions: true
                 }),
                 console
@@ -28,7 +28,7 @@ module.exports = function() {
             ),
             // To handle Unhandled Promise Rejections outside the request handling pipeline
             winston.add(new winston.transports.File({
-                filename: '../unhandledRejections.log',
+                filename: 'logs/unhandledRejections.log',
                 handleRejections: true
                 }),
                 console
