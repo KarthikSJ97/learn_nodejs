@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll --verbose --maxWorkers=1 --coverage",
-    "coverage": "nyc --reporter=text-summary --reporter=html npm test"
+    "coverage": "nyc --reporter=text-summary --reporter=html npm test",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "10.19.0"
   },
   "keywords": [],
   "author": "",
