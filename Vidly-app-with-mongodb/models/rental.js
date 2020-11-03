@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
+const moment = require('moment');
 
 // Rental Schema with new customer and movie schema to improve the query performance
 const rentalSchema = mongoose.Schema({
@@ -62,6 +63,14 @@ rentalSchema.statics.lookup = function(customerId, movieId) {
         'customer._id': customerId,
         'movie._id': movieId
     });
+}
+
+// Adding an instance method to calculate and set the rental fee
+rentalSchema.methods.return = function() {
+    this.dateReturned = new Date();
+
+    const rentalDays = moment().diff(this.dateOut, 'days');
+    this.rentalFee = rentalDays * this.movie.dailyRentalRate;
 }
 
 // Generate Rental model
