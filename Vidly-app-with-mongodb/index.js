@@ -19,6 +19,9 @@ require('./startup/config')();
 // Load Joi validation
 require('./startup/validation')();
 
+// Load the middlewares for prod environment by passing the express application object
+require('./startup/prod')(app);
+
 // Run the server on port 8086 by default unless set by an environment variable
 const port = process.env.PORT || 8086;
 const server = app.listen(port, () => winston.info(`Listening on port ${port}...`));
