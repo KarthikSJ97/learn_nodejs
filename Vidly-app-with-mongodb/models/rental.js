@@ -56,6 +56,14 @@ const rentalSchema = mongoose.Schema({
     }
 });
 
+// Adding a static method to fetch a rental
+rentalSchema.statics.lookup = function(customerId, movieId) {
+    return this.findOne({
+        'customer._id': customerId,
+        'movie._id': movieId
+    });
+}
+
 // Generate Rental model
 const Rental = mongoose.model('Rental', rentalSchema);
 
