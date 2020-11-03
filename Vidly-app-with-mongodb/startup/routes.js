@@ -4,6 +4,7 @@ const movies = require('../routes/movies');
 const rentals = require('../routes/rentals')
 const users = require('../routes/users');
 const auth = require('../routes/auth');
+const returns = require('../routes/returns');
 const express = require('express');
 const error = require('../middleware/error');
 
@@ -28,6 +29,9 @@ module.exports = function(app) {
 
     // Middleware for routing to auth related APIs'
     app.use('/api/auth', auth);
+
+    // Middleware for routing to returns related APIs'
+    app.use('/api/returns', returns);
 
     // Middleware to handle exceptions globally
     app.use(error);
